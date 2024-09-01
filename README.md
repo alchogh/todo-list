@@ -1,50 +1,41 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+https://github.com/user-attachments/assets/3d479be8-ca21-4967-bb32-dbe1ed85f51c
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [프로젝트 소개](#프로젝트-소개)
+- [프로젝트 구조](#프로젝트-구조)
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+
+## 프로젝트 소개
+
+- 투두리스트 작성
+- "All", "Completed","Pending" 3가지로 분류함
+- zustand 라이브러리를 통해 로컬스토리지에 상태값을 저장
+- styled-componenets를 활용하여 ui 적용
+- 
+
+
+## 프로젝트 구조
+
+```bash
+├── src
+│   ├── store
+│   │   └── todoStore.ts   
+|   |   └── countStore.ts
+│   ├── styles
+│   │   └── Global.ts 
+│   ├── App.tsx            # 메인 컴포넌트
+│   └── ...
+├── public
+│   └── index.html         # HTML 템플릿
+├── package.json           
+└── README.md             
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+ **스크린샷**: 애플리케이션의 UI를 보여주는 스크린샷을 추가하면 더욱 매력적인 README.md가 될 수 있습니다.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+
