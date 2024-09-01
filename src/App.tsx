@@ -42,21 +42,22 @@ export default function App() {
 				<button onClick={() => setFilter('completed')}>Completed</button>
 				<button onClick={() => setFilter('pending')}>Pending</button>
 			</FilterStyle>
+			<ListBox>
+				<ul>
+					{filteredTodos.map((todo) => (
+						<li key={todo.id}>
+							<input
+								type="checkbox"
+								checked={todo.completed}
+								onChange={() => toggleTodo(todo.id)}
+							/>
 
-			<ul>
-				{filteredTodos.map((todo) => (
-					<li key={todo.id}>
-						<input
-							type="checkbox"
-							checked={todo.completed}
-							onChange={() => toggleTodo(todo.id)}
-						/>
-
-						<p>{todo.title}</p>
-						<button onClick={() => removeTodo(todo.id)}>X</button>
-					</li>
-				))}
-			</ul>
+							<p>{todo.title}</p>
+							<button onClick={() => removeTodo(todo.id)}>X</button>
+						</li>
+					))}
+				</ul>
+			</ListBox>
 		</TodoStyle>
 	);
 }
@@ -64,51 +65,26 @@ export default function App() {
 const TodoStyle = styled.div`
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 	align-items: center;
+
 	button {
 		cursor: pointer;
 	}
 	gap: 40px;
-
-	ul {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-
-		li {
-			display: flex;
-			gap: 20px;
-			border: 1px solid #fbfbfb;
-			box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽에 살짝 큰 그림자 */
-			padding-left: 10px;
-			border-radius: 12px;
-			min-width: 700px;
-			p {
-				flex-grow: 1;
-			}
-
-			input button {
-				flex-shrink: 1;
-			}
-
-			button {
-				border: none;
-				background-color: white;
-				padding: 10px;
-				color: #d6d6d6;
-				:hover {
-					color: black;
-				}
-			}
-		}
-	}
 `;
 
 const WriteBox = styled.div`
 	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
 	gap: 10px;
 	input {
 		border: none;
+		padding-left: 14px;
+		@media (max-width: 768px) {
+			min-width: 200px;
+		}
 		min-width: 300px;
 
 		border-bottom: 1px solid #d6d6d6;
@@ -136,5 +112,49 @@ const FilterStyle = styled.div`
 		border-bottom: 1px solid #d6d6d6;
 
 		background-color: white;
+	}
+`;
+
+const ListBox = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+		width: 100%;
+		li {
+			display: flex;
+			gap: 20px;
+			border: 1px solid #fbfbfb;
+			box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽에 살짝 큰 그림자 */
+			padding-left: 10px;
+			border-radius: 12px;
+			@media (max-width: 768px) {
+				min-width: 300px;
+			}
+			min-width: 700px;
+			p {
+				flex-grow: 1;
+			}
+
+			input button {
+				flex-shrink: 1;
+			}
+
+			button {
+				border: none;
+				background-color: white;
+				padding: 10px;
+				color: #d6d6d6;
+				:hover {
+					color: black;
+				}
+			}
+		}
 	}
 `;
