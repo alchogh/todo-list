@@ -53,7 +53,7 @@ export default function App() {
 						/>
 
 						<p>{todo.title}</p>
-						<button onClick={() => removeTodo(todo.id)}>삭제</button>
+						<button onClick={() => removeTodo(todo.id)}>X</button>
 					</li>
 				))}
 			</ul>
@@ -77,7 +77,11 @@ const TodoStyle = styled.div`
 
 		li {
 			display: flex;
-			gap: 10px;
+			gap: 20px;
+			border: 1px solid #fbfbfb;
+			box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 아래쪽에 살짝 큰 그림자 */
+			padding-left: 10px;
+			border-radius: 12px;
 			min-width: 700px;
 			p {
 				flex-grow: 1;
@@ -89,7 +93,12 @@ const TodoStyle = styled.div`
 
 			button {
 				border: none;
+				background-color: white;
 				padding: 10px;
+				color: #d6d6d6;
+				:hover {
+					color: black;
+				}
 			}
 		}
 	}
@@ -100,15 +109,19 @@ const WriteBox = styled.div`
 	gap: 10px;
 	input {
 		border: none;
-		border-bottom: 1px solid gray;
+		min-width: 300px;
+
+		border-bottom: 1px solid #d6d6d6;
 		&:focus {
-			border-bottom: 1px solid gray;
+			border-bottom: 1px solid #d6d6d6;
 			background-color: #f0f8ff;
 			outline: none;
 		}
 	}
 
 	button {
+		background-color: #fbfbfb;
+		border-radius: 8px;
 		border: none;
 		padding: 15px;
 	}
@@ -120,7 +133,7 @@ const FilterStyle = styled.div`
 	button {
 		padding: 1px;
 		border: none;
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid #d6d6d6;
 
 		background-color: white;
 	}
