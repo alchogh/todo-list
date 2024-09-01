@@ -11,6 +11,8 @@ https://github.com/user-attachments/assets/3d479be8-ca21-4967-bb32-dbe1ed85f51c
 
 ## 프로젝트 소개
 
+[배포된 사이트 보기](https://todo-list-liart-delta.vercel.app/)
+
 - 투두리스트 작성
 - "All", "Completed","Pending" 3가지로 분류함
 - zustand 라이브러리를 통해 로컬스토리지에 상태값을 저장
