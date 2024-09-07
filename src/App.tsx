@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useTodoStore } from './store/todoStore';
+import { useEffect, useRef, useState } from 'react';
 
 export default function App() {
 	const {
@@ -13,17 +14,57 @@ export default function App() {
 		setInputValue,
 	} = useTodoStore();
 
+	const [visibleCount, setVisibleCount] = useState(10); // 처음에 10개만 표시
 	const filteredTodos = todos.filter((todo) => {
 		if (filter === 'all') return true;
 		if (filter === 'completed') return todo.completed;
 		if (filter === 'pending') return !todo.completed;
 	});
 
+	// 현재 보여줄 목록
+	const visibleTodos = filteredTodos.slice(0, visibleCount);
+
 	const handleAddTodo = () => {
 		if (inputValue.trim()) {
 			addTodo(inputValue);
 		}
 	};
+
+	const [isIntersecting, setIsIntersecting] = useState(false);
+	const targetRef = useRef(null);
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry.isIntersecting) {
+					setIsIntersecting(true);
+				}
+			},
+			{
+				root: null,
+				rootMargin: '0px',
+				threshold: 0.1, // 10% 보일 때
+			},
+		);
+
+		if (targetRef.current) {
+			observer.observe(targetRef.current);
+		}
+
+		return () => {
+			if (targetRef.current) {
+				observer.unobserve(targetRef.current);
+			}
+		};
+	}, [visibleTodos]);
+
+	// 마지막 요소가 화면에 들어오면 더 많은 항목 로드
+	useEffect(() => {
+		if (isIntersecting && visibleCount < filteredTodos.length) {
+			setVisibleCount((prevCount) => prevCount + 10); // 10개씩 추가 로드
+			setIsIntersecting(false);
+		}
+	}, [isIntersecting, visibleCount, filteredTodos.length]);
 
 	return (
 		<TodoStyle>
@@ -44,14 +85,16 @@ export default function App() {
 			</FilterStyle>
 			<ListBox>
 				<ul>
-					{filteredTodos.map((todo) => (
-						<li key={todo.id}>
+					{visibleTodos.map((todo, index) => (
+						<li
+							key={todo.id}
+							ref={index === visibleTodos.length - 1 ? targetRef : null} // 마지막 요소에 ref 적용
+						>
 							<input
 								type="checkbox"
 								checked={todo.completed}
 								onChange={() => toggleTodo(todo.id)}
 							/>
-
 							<p>{todo.title}</p>
 							<button onClick={() => removeTodo(todo.id)}>X</button>
 						</li>
